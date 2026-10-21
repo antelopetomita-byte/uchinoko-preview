@@ -311,6 +311,100 @@ input,textarea{max-width:100%;font-size:16px!important}.set-row{min-height:48px}
 /* v1.3.1: keep the status badge visible; clip only the photo */
 .avatar{overflow:visible}
 .avatar img{border-radius:23px;overflow:hidden}
+
+/* ===== v1.4.0 UI refresh (layout hierarchy, FAB, records, graph, spacing) ===== */
+:root{--shadow-soft:0 2px 0 rgba(42,51,40,.05),0 8px 18px rgba(42,51,40,.06);--gap:12px}
+.card,.profile,.graph-card,.stat,.set-card,.log,.rec-item,.type-stats,.mini-card,.g-summary,.breakdown{box-shadow:var(--shadow-soft)}
+/* home order: profile -> care -> weight/next -> hitokoto -> records -> age */
+.care-card{margin:var(--gap) 16px 0;border-color:#D9E6D8;background:linear-gradient(180deg,#FFFFFF,#FBFDF8)}
+.care-title{font-size:.86rem;color:var(--ink);margin:0}
+.care-bar{height:8px;border-radius:99px;background:#EFEBDC;overflow:hidden;margin:2px 0 10px}
+.care-bar i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .3s}
+.care-card .task{min-height:48px;cursor:pointer}
+.care-card .task-text b{font-size:.86rem}
+.care-empty,.care-note{font-size:.74rem;font-weight:700;color:var(--soft);line-height:1.6}
+.care-note{margin-top:8px}
+.mini-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:var(--gap) 16px 0}
+.mini-card{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:11px 12px;text-align:left;font:inherit;color:inherit;display:flex;flex-direction:column;gap:3px;min-height:84px;min-width:0;cursor:pointer}
+.mini-card:active{transform:scale(.98)}
+.mini-card .mc-t{font-size:.74rem;font-weight:900;color:var(--soft)}
+.mini-card .mc-v{font-size:1.32rem;font-weight:900;line-height:1.15;letter-spacing:-.01em}
+.mini-card .mc-v small{font-size:.72rem;color:var(--soft);margin-left:2px;font-weight:800}
+.mini-card .mc-s{font-size:.74rem;font-weight:700;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-card .up{color:var(--red)} .mini-card .down{color:var(--green)}
+.hitokoto{margin:16px 16px 0;padding:18px 18px 16px;border-radius:24px;background:linear-gradient(150deg,#FFF6DF 0%,#FCE9C4 100%);border:1.5px solid #F0D59D;position:relative;overflow:hidden;box-shadow:0 6px 18px rgba(232,161,58,.16)}
+.hitokoto:after{content:"🐾";position:absolute;right:12px;bottom:4px;font-size:46px;opacity:.12}
+.hk-label{display:inline-block;font-size:.74rem;font-weight:900;color:#8A5E16;background:rgba(255,255,255,.75);padding:4px 10px;border-radius:99px;margin-bottom:10px}
+.hk-main{font-size:1.02rem;font-weight:900;line-height:1.7;color:var(--ink);position:relative}
+.hk-sub{font-size:.8rem;font-weight:700;color:#5F5646;line-height:1.65;margin-top:6px;position:relative}
+.log{width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.age-card{margin:16px 16px 0}
+.age-card .age-circle{width:92px;height:92px}
+.age-card .age-circle:before{inset:9px}
+.age-card .age-circle b{font-size:1.55rem}
+.age-card .more{text-decoration:none}
+.actions{display:none}
+/* FAB */
+.fab{width:72px;height:72px;font-size:34px;bottom:calc(44px + env(safe-area-inset-bottom,0px));box-shadow:0 10px 26px rgba(42,51,40,.38),0 3px 8px rgba(42,51,40,.22)}
+.fab-label{color:var(--ink)!important;pointer-events:none}
+.sheet-sub{font-size:.76rem;font-weight:900;color:var(--soft);margin:2px 2px 8px}
+.type-grid+.sheet-sub{margin-top:16px}
+.type-grid.main{grid-template-columns:1fr 1fr;gap:10px}
+.type-grid.main .type-btn{display:flex;align-items:center;gap:10px;justify-content:flex-start;padding:16px 14px;font-size:.95rem;text-align:left;min-height:64px}
+.type-grid.main .type-btn span{display:inline;font-size:1.7rem;margin:0}
+.type-grid.other{grid-template-columns:repeat(4,1fr);gap:8px}
+.type-grid.other .type-btn{font-size:.74rem;padding:12px 2px;min-height:64px}
+/* records list */
+.search-row{margin:12px 16px 2px}
+.rec-hint{margin:2px 18px 0;font-size:.74rem;font-weight:700;color:var(--soft)}
+.rec-day{font-size:.78rem;color:#4C5848;margin:16px 18px 6px}
+.rec-item{width:calc(100% - 32px);text-align:left;font:inherit;color:inherit;gap:10px;padding:10px 12px 10px 8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;cursor:pointer;transition:transform .12s,background .12s}
+.rec-item.pressing{transform:scale(.98);background:#FAF8F0}
+.rec-item .rd{width:40px;flex-shrink:0;text-align:center;line-height:1.1;border-right:1.5px solid var(--line);padding-right:6px}
+.rec-item .rd b{display:block;font-size:1.4rem;font-weight:900}
+.rec-item .rd span{font-size:.72rem;font-weight:900;color:var(--soft)}
+.rec-item .ri{width:38px;height:38px;font-size:17px}
+.rec-item .rm b{font-size:.9rem}
+.rec-item .rm span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rec-item .chev{color:var(--soft);font-weight:900;font-size:1.1rem;padding-left:2px}
+.empty-box{margin:24px 16px;padding:26px 18px;text-align:center;background:rgba(255,255,255,.65);border:1.5px dashed var(--line);border-radius:20px}
+.empty-box .e{font-size:36px}
+.empty-box p{font-size:.86rem;font-weight:700;color:var(--soft);line-height:1.7;margin:8px 0 6px}
+.menu-sum{font-size:.84rem;font-weight:700;color:var(--soft);margin:-6px 2px 12px;line-height:1.6;overflow-wrap:anywhere}
+.danger-text{color:#B5412C!important}
+.danger-link{display:block;width:100%;margin-top:12px;padding:14px;border-radius:16px;border:1.5px solid #EDC3B8;background:#fff;color:#B5412C;font:inherit;font-weight:900;font-size:.9rem;min-height:48px;cursor:pointer}
+/* graph */
+.g-summary{margin:var(--gap) 16px 0;background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.g-summary span{font-size:.78rem;font-weight:900;color:var(--soft)}
+.g-summary b{display:block;font-size:2.1rem;font-weight:900;line-height:1.2;margin:2px 0}
+.g-summary b.up{color:var(--red)} .g-summary b.down{color:var(--green)}
+.g-summary small{display:block;font-size:.74rem;font-weight:700;color:var(--soft);line-height:1.5}
+.graph-card{margin-top:var(--gap)}
+.g-chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.g-chip{font:inherit;font-size:.74rem;font-weight:800;color:var(--soft);background:#FAF8F0;border:1px solid var(--line);border-radius:99px;padding:6px 11px;min-height:32px;display:inline-flex;align-items:center;gap:4px}
+.g-chip b{color:var(--ink)} .g-chip b.up{color:var(--red)} .g-chip b.down{color:var(--green)}
+.g-chip small{font-size:.72rem;color:var(--green);font-weight:900}
+button.g-chip{cursor:pointer;color:var(--green);border-color:#CFE2CF;background:#F3F8F2}
+.stat-grid{grid-template-columns:repeat(3,1fr);margin-top:var(--gap)}
+details.breakdown{margin:var(--gap) 16px 0;background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:0 14px}
+details.breakdown summary{padding:14px 0;font-size:.86rem;font-weight:900;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:48px}
+details.breakdown summary::-webkit-details-marker{display:none}
+details.breakdown summary:after{content:"開く ▾";font-size:.74rem;color:var(--soft)}
+details.breakdown[open] summary:after{content:"閉じる ▴"}
+details.breakdown .type-stats{margin:0 0 8px;border:0;box-shadow:none;padding:0}
+/* spacing & typography */
+.section{margin:22px 18px 8px}
+.section h2{font-size:.98rem}
+.set-group{margin:18px 16px 0}
+.set-label{color:#3F4B3C;font-size:.8rem;letter-spacing:.06em;margin:0 6px 8px}
+.set-row{padding:14px 16px;min-height:58px}
+.set-row .st b{font-size:.9rem;color:var(--ink)}
+.set-row .st span{display:block;line-height:1.5}
+.set-foot{line-height:1.8}
+.view-head p{font-size:.78rem}
+/* sample banner: compact, under the header */
+.status-strip{margin:2px 16px 4px;padding:7px 8px 7px 14px;border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.76rem;line-height:1.5;background:#FFF3D0;border:1px solid #EBD9A0}
+.status-strip button{flex-shrink:0;min-height:36px;padding:6px 10px;font-size:.76rem}
 </style>
 </head>
 <body>
@@ -321,7 +415,7 @@ input,textarea{max-width:100%;font-size:16px!important}.set-row{min-height:48px}
 <nav class="tabbar">
   <a class="tab on" role="button" tabindex="0" data-view="home"><span class="i">🏠</span>ホーム</a>
   <a class="tab" role="button" tabindex="0" data-view="rec"><span class="i">📔</span>記録</a>
-  <a class="tab" style="visibility:hidden"><span class="i">＋</span></a>
+  <span class="tab fab-label" aria-hidden="true"><span class="i" style="visibility:hidden">＋</span>記録する</span>
   <a class="tab" role="button" tabindex="0" data-view="graph"><span class="i">📈</span>グラフ</a>
   <a class="tab" role="button" tabindex="0" data-view="settings"><span class="i">⚙️</span>設定</a>
 </nav>
@@ -367,6 +461,7 @@ function validateState(s){
   if(!Array.isArray(p.records)||p.records.length>50000||!Array.isArray(p.tasks)||p.tasks.length>1000) fail();
   for(const r of p.records) if(!r||!['weight','meal','walk','poop','hospital','vaccine','trim','memo'].includes(r.type)||!validDate(r.date)||!str(r.note)||r.type==='weight'&&!(typeof r.value==='number'&&Number.isFinite(r.value)&&r.value>0&&r.value<=1000)) fail();
   for(const t of p.tasks) if(!t||!str(t.t,200)||!str(t.note)||!str(t.time,100)||typeof t.done!=='boolean') fail();
+  if(p.targetWeight!==undefined&&!(typeof p.targetWeight==="number"&&Number.isFinite(p.targetWeight)&&p.targetWeight>0&&p.targetWeight<=1000)) fail();
   if(p.next&&(!str(p.next.title,200)||!validDate(p.next.date)||!str(p.next.place,500))) fail();
   if(p.reminders!==undefined){
    if(!Array.isArray(p.reminders)||p.reminders.length>1000) fail();
@@ -534,7 +629,7 @@ let view="home";
 function setView(v){ if(document.getElementById("overlay").classList.contains("show")){closeSheet();if(document.getElementById("overlay").classList.contains("show"))return;} view=v; window.scrollTo(0,0); render(); }
 function render(){
   if(storageProblem){renderRecovery();return;}
-  try{ save(); }catch(e){ if(!storageProblem) storageProblem="別のタブまたは別の操作でデータが更新されました。再読み込みしてください。"; renderRecovery(); return; }
+  save(); // 失敗時は save() が警告・巻き戻しをして例外を投げ、呼び出し元の「保存しました」表示を止める
   document.getElementById("fab").hidden=!state.pets.length;
   if(!state.pets.length){renderWelcome();return;}
   document.querySelectorAll(".tabbar .tab[data-view]").forEach(function(t){
@@ -544,10 +639,30 @@ function render(){
   else if(view==="graph") renderGraph();
   else if(view==="settings") renderSettings();
   else renderHome();
-  if(state.demo)document.getElementById("app").insertAdjacentHTML("afterbegin",'<div class="status-strip">サンプル表示中 · 実際のペットの記録ではありません <button onclick="finishDemo()">登録を始める</button></div>');
+  if(state.demo){const app=document.getElementById("app"),anchor=app.querySelector(".header,.view-head"),strip='<div class="status-strip"><span>サンプル表示中 · 実際のペットの記録ではありません</span><button onclick="finishDemo()">登録を始める</button></div>';if(anchor)anchor.insertAdjacentHTML("afterend",strip);else app.insertAdjacentHTML("afterbegin",strip);}
 }
 
 /* ---------- HOME ---------- */
+function hitokoto(p,ctx){
+  const name=p.name, t=localToday(), md=t.slice(5);
+  if(p.birth&&p.birth.slice(5)===md){ const a=actualAge(p); return {main:`お誕生日おめでとう！ ${name}は今日で${a.y}歳になりました。`,sub:"今日の様子を、ひとことメモに残しておきませんか。"}; }
+  const lines=[
+    `${name}が生まれて${ctx.together.toLocaleString()}日目。今日もそばにいてくれて、ありがとう。`,
+    `${name}の小さな変化に気づけるのは、毎日いっしょにいるあなたです。`,
+    `今日の${name}は、どんな顔をしていましたか？ ひとことメモに残してみよう。`,
+    `記録は${p.records.length}件になりました。${name}との毎日が、少しずつ手帳に積み重なっています。`,
+    `お世話おつかれさま。${name}との時間が、今日もおだやかでありますように。`
+  ];
+  const day=Math.floor(Date.parse(t+"T00:00:00Z")/86400000);
+  const main=lines[((day%lines.length)+lines.length)%lines.length];
+  let sub="";
+  if(ctx.dcls==="up") sub=`体重は前回より ${ctx.delta}。測った時間や条件も、いっしょに振り返ってみよう。`;
+  else if(ctx.dcls==="down") sub=`体重は前回より ${ctx.delta}。測った時間や条件も、いっしょに振り返ってみよう。`;
+  else if(ctx.total&&ctx.done===ctx.total) sub="今日のお世話チェックは、ぜんぶ完了しています。";
+  else if(ctx.total) sub=`お世話チェックは、あと${ctx.total-ctx.done}件です。`;
+  else sub="体重・ごはん・お通じをこまめに残すと、小さな変化にも気づきやすくなります。";
+  return {main,sub};
+}
 function renderHome(){
   const p=pet();
   const ha=humanAge(p), aa=actualAge(p);
@@ -567,9 +682,10 @@ function renderHome(){
   const nx=upcoming[0]||null;
   const nextDays=nx?daysBetween(todayISO,nx.date):null;
   const bd=new Date(p.birth+"T00:00:00");
-
-  const logs=[...p.records].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8);
+  const logs=[...p.records].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
   const sc=conditionScore(p), sl=scoreLabel(sc);
+  const total=p.tasks.length, done=p.tasks.filter(t=>t.done).length;
+  const hk=hitokoto(p,{together,dcls,delta,total,done});
 
   document.getElementById("app").innerHTML=`
   <header class="header">
@@ -591,84 +707,75 @@ function renderHome(){
     <div class="score">
       <div class="score-text">
         <b>記録の充実度</b>
-        <span>${dcls==='up'?'体重が少し増加。':''}${sl.word}</span>
+        <span>${sl.word}</span>
       </div>
       <div class="score-num num">${sc}</div>
     </div>
     <button class="share-cta" id="shareCta">📤 うちのこカードをつくる</button>
   </section>
 
-  <div class="dashboard">
-    <section class="card wide">
-      <div class="card-head"><div class="card-title">🐾 にんげん年齢</div><div class="more" data-tab="age">詳しく</div></div>
-      <div class="age-grid">
-        <div class="age-circle" style="background:conic-gradient(var(--yellow) 0 ${Math.min(ha/25*100,100)}%, #EFEBDC 0)">
-          <div><b class="num">${ha}</b><span>歳くらい</span></div>
-        </div>
-        <div class="age-list">
-          <div class="mini-row"><span>じっさい</span><b class="num">${aa.y}歳${aa.m}ヶ月</b></div>
-          <div class="mini-row"><span>誕生日</span><b class="num">${bd.getFullYear()}.${bd.getMonth()+1}.${bd.getDate()}</b></div>
-          <div class="mini-row"><span>生まれて</span><b class="num">${together.toLocaleString()}日</b></div>
-        </div>
-      </div>
-    </section>
+  <section class="card care-card" aria-labelledby="careTitle">
+    <div class="card-head"><h2 class="card-title care-title" id="careTitle">☀️ 今日のお世話チェック</h2><div class="more"><span class="num">${done}/${total}</span> 完了 <button class="mini" id="taskEdit">編集</button></div></div>
+    ${total?`<div class="care-bar" role="progressbar" aria-label="お世話の完了数" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${done}"><i style="width:${Math.round(done/total*100)}%"></i></div>`:''}
+    <div class="tasks">
+      ${total?p.tasks.map((t,i)=>`
+        <div class="task ${t.done?'done':''}" data-task="${i}" role="checkbox" aria-checked="${t.done}" tabindex="0">
+          <div class="check">✓</div>
+          <div class="task-text"><b>${esc(t.t)}</b>${t.note?`<span>${esc(t.note)}</span>`:''}</div>
+          <div class="task-time">${t.done?'完了':esc(t.time)}</div>
+        </div>`).join(""):`<p class="care-empty">ごはん・お薬など、毎日のお世話を「編集」から追加できます。</p>`}
+    </div>
+    ${total?'<p class="care-note">タップで完了を切り替えます（日付が変わっても自動ではリセットされません）。</p>':''}
+  </section>
 
-    <section class="card">
-      <div class="card-head"><div class="card-title">⚖️ 体重</div></div>
-      <div class="big num">${latest!=null?latest:"—"}<small>kg</small></div>
-      <div class="note">${delta?`前回比 <b class="${dcls} num">${delta}</b><br>${dcls==='up'?'少し増えています':dcls==='down'?'少し減っています':'安定しています'}`:'最初の記録をつけよう'}</div>
-      ${sparkline(ws.map(w=>w.value),"var(--red)")}
-    </section>
-
-    <section class="card tap" id="nextCard">
-      <div class="card-head"><div class="card-title">🔔 次の予定</div><div class="more">${(p.reminders||[]).filter(r=>!r.done).length?'編集':'＋追加'}</div></div>
-      ${nx?`<div class="big num">${nextDays===0?'今日':Math.abs(nextDays)}<small>${nextDays===0?'':nextDays<0?'日前':'日後'}</small></div>
-      <div class="note">${esc(nx.title)}<br>${jpDate(nx.date).md} ${esc(nx.place||'')}</div>`
-      :`<div class="big" style="font-size:1rem;color:var(--soft)">予定なし</div><div class="note">タップして予防接種や通院を登録</div>`}
-    </section>
-
-    <section class="card wide">
-      <div class="card-head"><div class="card-title">☀️ お世話チェック</div><div class="more">${p.tasks.filter(t=>t.done).length}/${p.tasks.length} 完了 <button class="mini" id="taskEdit">編集</button></div></div>
-      <p class="small-note" style="font-size:11px;color:var(--soft);margin-bottom:8px">完了は手動で切り替えます。日付ではリセットされません。</p><div class="tasks">
-        ${p.tasks.map((t,i)=>`
-          <div class="task ${t.done?'done':''}" data-task="${i}">
-            <div class="check">✓</div>
-            <div class="task-text"><b>${esc(t.t)}</b>${t.note?`<span>${esc(t.note)}</span>`:''}</div>
-            <div class="task-time">${t.done?'完了':esc(t.time)}</div>
-          </div>`).join("")}
-      </div>
-    </section>
-  </div>
-
-  <div class="actions">
-    <button class="action" data-add="weight"><span class="ico">⚖️</span><b>体重</b></button>
-    <button class="action" data-add="meal"><span class="ico">🍚</span><b>ごはん</b></button>
-    <button class="action" data-add="walk"><span class="ico">🚶</span><b>散歩</b></button>
-    <button class="action" data-add="hospital"><span class="ico">🏥</span><b>通院</b></button>
+  <div class="mini-cards">
+    <button class="mini-card" id="weightCard" aria-label="体重 ${latest!=null?latest+'kg':'記録なし'}。グラフを見る">
+      <span class="mc-t">⚖️ 体重</span>
+      <span class="mc-v num">${latest!=null?latest:"—"}<small>kg</small></span>
+      <span class="mc-s">${delta?`前回比 <b class="${dcls}">${delta}</b>`:(latest!=null?'もう1回で変化がわかります':'タップしてグラフへ')}</span>
+    </button>
+    <button class="mini-card" id="nextCard" aria-label="次の予定。${nx?esc(nx.title):'予定なし'}。予定を編集">
+      <span class="mc-t">🔔 次の予定</span>
+      ${nx?`<span class="mc-v num">${nextDays===0?'今日':Math.abs(nextDays)}<small>${nextDays===0?'':nextDays<0?'日前':'日後'}</small></span>
+      <span class="mc-s">${esc(nx.title)} ・ ${jpDate(nx.date).md}</span>`
+      :`<span class="mc-v" style="font-size:1rem;color:var(--soft)">予定なし</span><span class="mc-s">タップして追加</span>`}
+    </button>
   </div>
 
   ${notifState!=='granted'&&upcoming.length?`<div class="notif-banner">🔔 予定が近づいたらお知らせします<button id="notifBtn">通知オン</button></div>`:''}
 
-  <section class="insight">
-    <div class="ai">✨ 今日のひとこと</div>
-    <h3>${dcls==='up'?'体重が少し増えています':'順調に過ごせています'}</h3>
-    <p>${dcls==='up'
-      ?'直近2回の記録を比較しています。測定日や測定条件も、一緒に振り返りましょう。'
-      :'記録が続いていますね。体重・ごはん・お通じをこまめに残すほど、小さな変化にも気づきやすくなります。'}</p>
+  <section class="hitokoto" aria-label="今日のひとこと">
+    <div class="hk-label">🐾 今日のひとこと</div>
+    <p class="hk-main">${esc(hk.main)}</p>
+    <p class="hk-sub">${esc(hk.sub)}</p>
   </section>
 
-  <div class="section"><h2>📔 最近のきろく</h2><a href="#" data-tab="rec">すべて見る →</a></div>
+  <div class="section"><h2>📔 最近のきろく</h2>${logs.length?'<a href="#" data-tab="rec">すべて見る →</a>':''}</div>
   <div class="timeline">
-    ${logs.length?logs.map((r,idx)=>{
+    ${logs.length?logs.map(r=>{
       const T=TYPES[r.type], dd=jpDate(r.date);
       const sub=r.type==="weight"?`${r.value}kg${r.note?' ／ '+r.note:''}`:(r.note||T.label);
-      return `<div class="log" data-del="${p.records.indexOf(r)}">
-        <div class="log-ico" style="background:${T.bg}">${T.ico}</div>
-        <div class="log-main"><b>${r.type==="weight"?"たいじゅう記録":T.label}</b><span>${esc(sub)}</span></div>
-        <div class="date">${dd.md}<b>${dd.w}</b></div>
-      </div>`;
-    }).join(""):`<div class="empty">まだ記録がありません<br>右下の ＋ から最初の1件をつけてみよう</div>`}
+      return `<button class="log" data-edit="${p.records.indexOf(r)}" aria-label="${dd.md} ${esc(T.label)}の記録を開く">
+        <span class="log-ico" style="background:${T.bg}">${T.ico}</span>
+        <span class="log-main"><b>${T.label}</b><span>${esc(sub)}</span></span>
+        <span class="date">${dd.md}<b>${dd.w}</b></span>
+      </button>`;
+    }).join(""):`<div class="empty">まだ記録がありません<br>下の ＋ から最初の1件をつけてみよう</div>`}
   </div>
+
+  <section class="card age-card">
+    <div class="card-head"><div class="card-title">🐾 にんげん年齢</div><a href="#" class="more" data-tab="age">詳しく</a></div>
+    <div class="age-grid">
+      <div class="age-circle" style="background:conic-gradient(var(--yellow) 0 ${Math.min(ha/25*100,100)}%, #EFEBDC 0)">
+        <div><b class="num">${ha}</b><span>歳くらい</span></div>
+      </div>
+      <div class="age-list">
+        <div class="mini-row"><span>じっさい</span><b class="num">${aa.y}歳${aa.m}ヶ月</b></div>
+        <div class="mini-row"><span>誕生日</span><b class="num">${bd.getFullYear()}.${bd.getMonth()+1}.${bd.getDate()}</b></div>
+        <div class="mini-row"><span>生まれて</span><b class="num">${together.toLocaleString()}日</b></div>
+      </div>
+    </div>
+  </section>
 
   <div class="tip">
     <span class="emoji">☕</span>
@@ -729,23 +836,21 @@ function bind(){
   const ab=document.getElementById("avatarBtn"); if(ab) ab.onclick=pickPhoto;
   // reminders
   const nc=document.getElementById("nextCard"); if(nc) nc.onclick=openReminderSheet;
+  const wc=document.getElementById("weightCard"); if(wc) wc.onclick=()=>setView("graph");
   // enable notifications banner
   const nb=document.getElementById("notifBtn"); if(nb) nb.onclick=async()=>{ await ensureNotify(); render(); toast(notifState==="granted"?"通知を許可しました":"通知は許可されていません"); };
   const taskEdit=document.getElementById("taskEdit");if(taskEdit)taskEdit.onclick=taskEditor;
   // tasks toggle
   document.querySelectorAll("[data-task]").forEach(el=>{
     el.onclick=()=>{ const i=+el.dataset.task; const p=pet(); p.tasks[i].done=!p.tasks[i].done; render(); };
+    el.onkeydown=e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); el.click(); } };
   });
   // quick add
   document.querySelectorAll("[data-add]").forEach(el=>{
     el.onclick=()=>addForm(el.dataset.add);
   });
-  // delete record
-  document.querySelectorAll("[data-del]").forEach(el=>{
-    el.onclick=()=>{ const i=+el.dataset.del; const p=pet();
-      if(confirm("この記録を削除しますか？")){ p.records.splice(i,1); render(); toast("削除しました"); }
-    };
-  });
+  // open record (edit; delete is inside the edit sheet)
+  document.querySelectorAll("[data-edit]").forEach(el=>{ el.onclick=()=>editRecord(+el.dataset.edit); });
   // "詳しく" opens age sheet, "すべて見る" opens records view
   document.querySelectorAll("[data-tab]").forEach(el=>{
     el.onclick=(e)=>{ e.preventDefault(); if(el.dataset.tab==="age") ageSheet(); else setView("rec"); };
@@ -757,12 +862,13 @@ document.getElementById("fab").onclick=()=>typeSheet();
 /* choose a record type */
 function typeSheet(){
   if(!state.pets.length){addPetForm();return;}
-  const order=Object.keys(TYPES);
+  const btn=k=>`<button class="type-btn" onclick="addForm('${k}')"><span>${TYPES[k].ico}</span>${TYPES[k].label}</button>`;
   openSheet(`
-    <div class="sheet-h"><b>＋ 記録する</b><button class="x" onclick="closeSheet()">✕</button></div>
-    <div class="type-grid">
-      ${order.map(k=>`<button class="type-btn" onclick="addForm('${k}')"><span>${TYPES[k].ico}</span>${TYPES[k].label}</button>`).join("")}
-    </div>`);
+    <div class="sheet-h"><b>＋ ${esc(pet().name)}の記録</b><button class="x" onclick="closeSheet()" aria-label="閉じる">✕</button></div>
+    <p class="sheet-sub">よく使う記録</p>
+    <div class="type-grid main">${["weight","meal","walk","hospital"].map(btn).join("")}</div>
+    <p class="sheet-sub">その他</p>
+    <div class="type-grid other">${["poop","vaccine","trim","memo"].map(btn).join("")}</div>`);
 }
 
 /* record form */
@@ -1237,95 +1343,143 @@ function renderRecords(){
     .sort((a,b)=>new Date(b.date)-new Date(a.date));
   let rows="", lastKey="";
   list.forEach(r=>{
-    const d=new Date(r.date), key=d.getFullYear()+"/"+(d.getMonth()+1);
-    if(key!==lastKey){ rows+=`<div class="rec-day">${d.getFullYear()}年${d.getMonth()+1}月</div>`; lastKey=key; }
-    const T=TYPES[r.type], dd=jpDate(r.date);
-    const sub=r.type==="weight"?`${r.value}kg${r.note?' ／ '+r.note:''}`:(r.note||T.label);
-    const gi=p.records.indexOf(r);
-    rows+=`<div class="rec-item">
-      <div class="ri" style="background:${T.bg}">${T.ico}</div>
-      <div class="rm"><b>${r.type==="weight"?"体重":T.label}</b><span>${dd.md}（${dd.w}）・${esc(sub)}</span></div>
-      <button class="mini" data-recedit="${gi}" aria-label="${esc(T.label)}の記録を編集">編集</button><button class="rx" data-recdel="${gi}" aria-label="記録を削除">✕</button>
-    </div>`;
+    const d=new Date(r.date+"T00:00:00"), key=d.getFullYear()+"/"+(d.getMonth()+1);
+    if(key!==lastKey){ rows+=`<h2 class="rec-day">${d.getFullYear()}年${d.getMonth()+1}月</h2>`; lastKey=key; }
+    const T=TYPES[r.type], dd=jpDate(r.date), gi=p.records.indexOf(r);
+    const main=r.type==="weight"?`体重 ${r.value}kg`:T.label;
+    rows+=`<button class="rec-item" data-recedit="${gi}" aria-label="${dd.md}（${dd.w}） ${esc(T.label)}${r.type==="weight"?" "+r.value+"kg":""} ${esc(r.note)}。タップで編集、長押しでメニュー">
+      <span class="rd"><b class="num">${d.getDate()}</b><span>${dd.w}</span></span>
+      <span class="ri" style="background:${T.bg}">${T.ico}</span>
+      <span class="rm"><b>${main}</b>${r.note?`<span>${esc(r.note)}</span>`:''}</span>
+      <span class="chev" aria-hidden="true">›</span>
+    </button>`;
   });
+  let empty="";
+  if(!p.records.length) empty=`<div class="empty-box"><div class="e">📔</div><p>まだ記録がありません。<br>体重やごはんから、最初の1件をつけてみよう。</p><button class="save-btn" onclick="typeSheet()">＋ 最初の記録をつける</button></div>`;
+  else if(recQuery) empty=`<div class="empty-box"><div class="e">🔍</div><p>「${esc(recQuery)}」に一致する記録はありません。</p><button class="secondary" onclick="clearRecSearch()">検索をクリア</button></div>`;
+  else if(recFilter!=="all") empty=`<div class="empty-box"><div class="e">${TYPES[recFilter].ico}</div><p>${TYPES[recFilter].label}の記録はまだありません。</p><button class="save-btn" onclick="addForm('${recFilter}')">＋ ${TYPES[recFilter].label}を記録</button><button class="secondary" onclick="resetRecFilter()">すべて表示</button></div>`;
   document.getElementById("app").innerHTML=`
     <div class="view-head"><h1>📔 記録</h1><p>${esc(p.name)}の記録 ・ 全${p.records.length}件</p>
       <button class="view-pet" id="vpBtn"><span class="pp">${photos[p.id]?`<img src="${photos[p.id]}">`:esc(p.emoji)}</span>${esc(p.name)} ▼</button></div>
     <form id="searchForm" class="search-row"><label for="recordSearch" class="sr-only">記録を検索</label><input id="recordSearch" type="search" maxlength="100" placeholder="メモ・日付・種類で検索" value="${esc(recQuery)}"><button class="mini">検索</button></form>
     <div class="chips" id="recChips">
-      <button class="chip ${recFilter==='all'?'on':''}" data-f="all">すべて</button>
-      ${present.map(t=>`<button class="chip ${recFilter===t?'on':''}" data-f="${t}">${TYPES[t].ico} ${TYPES[t].label}</button>`).join("")}
+      <button class="chip ${recFilter==='all'?'on':''}" data-f="all" aria-pressed="${recFilter==='all'}">すべて</button>
+      ${present.map(t=>`<button class="chip ${recFilter===t?'on':''}" data-f="${t}" aria-pressed="${recFilter===t}">${TYPES[t].ico} ${TYPES[t].label}</button>`).join("")}
     </div>
-    ${list.length?rows:`<div class="view-empty">該当する記録がありません<br>検索条件を変えるか、＋から記録をつけよう</div>`}`;
+    ${list.length?`<p class="rec-hint">タップで編集 ・ 長押しで削除などのメニュー</p>`+rows:empty}`;
   document.getElementById("vpBtn").onclick=petSheet;
   document.getElementById("searchForm").onsubmit=e=>{e.preventDefault();recQuery=document.getElementById("recordSearch").value.trim();render();};
-  document.querySelectorAll("[data-recedit]").forEach(el=>el.onclick=()=>editRecord(+el.dataset.recedit));
   document.querySelectorAll("#recChips .chip").forEach(b=>b.onclick=()=>{ recFilter=b.dataset.f; render(); });
-  document.querySelectorAll("[data-recdel]").forEach(el=>el.onclick=()=>{
-    const i=+el.dataset.recdel;
-    if(confirm("この記録を削除しますか？")){ pet().records.splice(i,1); render(); toast("削除しました"); }
+  document.querySelectorAll("[data-recedit]").forEach(el=>{
+    const i=+el.dataset.recedit; let timer=null, sx=0, sy=0, longed=false;
+    const cancel=()=>{ clearTimeout(timer); timer=null; el.classList.remove("pressing"); };
+    el.addEventListener("pointerdown",e=>{ longed=false; sx=e.clientX; sy=e.clientY; el.classList.add("pressing"); timer=setTimeout(()=>{ longed=true; cancel(); if(navigator.vibrate)try{navigator.vibrate(10);}catch(_){} recordMenu(i); },550); });
+    el.addEventListener("pointermove",e=>{ if(timer&&(Math.abs(e.clientX-sx)>8||Math.abs(e.clientY-sy)>8)) cancel(); });
+    ["pointerup","pointercancel","pointerleave"].forEach(t=>el.addEventListener(t,cancel));
+    el.addEventListener("contextmenu",e=>{ e.preventDefault(); if(!longed){ longed=true; cancel(); recordMenu(i); } });
+    el.onclick=e=>{ if(longed){ e.preventDefault(); longed=false; return; } editRecord(i); };
   });
 }
 
 /* ---------------- GRAPH VIEW ---------------- */
 let gPeriod="all";
-function weightGraphSVG(ws){
+function niceTicks(lo,hi){
+  const steps=[0.1,0.2,0.25,0.5,1,2,2.5,5,10,20,25,50,100];
+  let rng=hi-lo; if(rng<=0) rng=Math.max(0.2,Math.abs(hi)*0.05);
+  const step=steps.find(s=>rng/s<=4)||100;
+  let a=Math.floor(lo/step)*step, b=Math.ceil(hi/step)*step; if(b-a<step){a-=step;b+=step;}
+  const dec=step<1?String(step).split(".")[1].length:0, ticks=[];
+  for(let v=a; v<=b+1e-9; v+=step) ticks.push(+v.toFixed(dec));
+  return {a:+a.toFixed(dec),b:+b.toFixed(dec),ticks,dec};
+}
+function weightGraphSVG(ws,target){
   if(ws.length<2) return `<div class="view-empty" style="padding:38px 20px">体重を2回以上記録すると<br>グラフが表示されます</div>`;
-  const W=360,H=200,padL=34,padR=14,padT=14,padB=28;
+  const W=360,H=200,padL=38,padR=14,padT=14,padB=28;
   const vals=ws.map(w=>w.value);
-  let min=Math.min.apply(null,vals), max=Math.max.apply(null,vals);
-  if(min===max){ min-=0.5; max+=0.5; }
-  const rng=max-min, iw=W-padL-padR, ih=H-padT-padB;
-  const X=i=>padL+(i/(ws.length-1))*iw;
-  const Y=v=>padT+(1-(v-min)/rng)*ih;
+  const lo=Math.min(...vals,target??Infinity), hi=Math.max(...vals,target??-Infinity);
+  const nt=niceTicks(lo,hi), iw=W-padL-padR, ih=H-padT-padB;
+  const tm=ws.map(w=>Date.parse(w.date+"T00:00:00Z")), t0=tm[0], t1=tm[tm.length-1];
+  const X=i=>padL+(t1>t0?(tm[i]-t0)/(t1-t0):i/(ws.length-1))*iw;
+  const Y=v=>padT+(1-(v-nt.a)/(nt.b-nt.a))*ih;
   let grid="";
-  for(let g=0;g<=3;g++){
-    const gv=max-(rng*g/3), gy=Y(gv);
-    grid+=`<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W-padR}" y2="${gy.toFixed(1)}" stroke="var(--line)" stroke-width="1"/>`;
-    grid+=`<text x="${padL-6}" y="${(gy+3).toFixed(1)}" text-anchor="end" font-size="9" font-weight="700" fill="var(--soft)">${gv.toFixed(1)}</text>`;
-  }
+  nt.ticks.forEach(v=>{ const gy=Y(v);
+    grid+=`<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${W-padR}" y2="${gy.toFixed(1)}" stroke="var(--line)" stroke-width="1"/><text x="${padL-6}" y="${(gy+3.5).toFixed(1)}" text-anchor="end" font-size="11" font-weight="700" fill="var(--soft)">${v.toFixed(nt.dec)}</text>`; });
+  let goal="";
+  if(target!=null){ const gy=Y(target).toFixed(1); goal=`<line x1="${padL}" y1="${gy}" x2="${W-padR}" y2="${gy}" stroke="var(--green)" stroke-width="1.6" stroke-dasharray="5 4"/><text x="${W-padR}" y="${(Y(target)-5).toFixed(1)}" text-anchor="end" font-size="11" font-weight="800" fill="var(--green)">目標 ${target}kg</text>`; }
   const line=vals.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ');
   const area=`M${X(0).toFixed(1)} ${(padT+ih).toFixed(1)} `+vals.map((v,i)=>`L${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ')+` L${X(vals.length-1).toFixed(1)} ${(padT+ih).toFixed(1)} Z`;
-  const dots=vals.map((v,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3.5" fill="#fff" stroke="var(--red)" stroke-width="2.5"/>`).join('');
-  const idxs=[0,Math.floor((ws.length-1)/2),ws.length-1].filter((v,i,a)=>a.indexOf(v)===i);
-  const xlab=idxs.map(i=>{const dd=jpDate(ws[i].date);return `<text x="${X(i).toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="9" font-weight="700" fill="var(--soft)">${dd.md}</text>`;}).join('');
-  return `<svg viewBox="0 0 ${W} ${H}">${grid}<path d="${area}" fill="rgba(233,120,99,.12)"/><path d="${line}" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${dots}${xlab}</svg>`;
+  const dots=vals.map((v,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3.5" fill="#fff" stroke="var(--red)" stroke-width="2.5"><title>${jpDate(ws[i].date).md} ${v}kg</title></circle>`).join('');
+  const idx=[0,ws.length-1]; const mid=Math.floor((ws.length-1)/2); if(ws.length>2&&X(mid)-X(0)>60&&X(ws.length-1)-X(mid)>60) idx.splice(1,0,mid);
+  const xlab=idx.map((i,k)=>`<text x="${X(i).toFixed(1)}" y="${H-8}" text-anchor="${k===0?'start':k===idx.length-1?'end':'middle'}" font-size="11" font-weight="700" fill="var(--soft)">${jpDate(ws[i].date).md}</text>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="体重の推移。${jpDate(ws[0].date).md}の${vals[0]}kgから${jpDate(ws[ws.length-1].date).md}の${vals[vals.length-1]}kgまで${ws.length}回">${grid}${goal}<path d="${area}" fill="rgba(233,120,99,.12)"/><path d="${line}" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${dots}${xlab}</svg>`;
 }
+function signedKg(v){ return v==null?"—":(v>0?"+":v<0?"":"±")+v+"kg"; }
 function renderGraph(){
   const p=pet();
-  let ws=weights(p);
+  const all=weights(p);
+  let ws=all;
   if(gPeriod!=="all"){
     const days=gPeriod==="3m"?92:366;
     const cut=new Date(); cut.setDate(cut.getDate()-days);
-    ws=ws.filter(w=>new Date(w.date)>=cut);
+    ws=ws.filter(w=>new Date(w.date+"T00:00:00")>=cut);
   }
   const vals=ws.map(w=>w.value);
   const latest=vals.length?vals[vals.length-1]:null;
   const max=vals.length?Math.max.apply(null,vals):null;
   const min=vals.length?Math.min.apply(null,vals):null;
   const change=vals.length>=2?+(vals[vals.length-1]-vals[0]).toFixed(1):null;
+  const recent=all.length>=2?+(all[all.length-1].value-all[all.length-2].value).toFixed(1):null;
+  const tw=p.targetWeight;
+  const lastAll=all.length?all[all.length-1].value:null;
+  const toGoal=(tw!=null&&lastAll!=null)?+(lastAll-tw).toFixed(1):null;
+  const cls=v=>v>0?"up":v<0?"down":"";
+  const periodName={"3m":"3ヶ月","1y":"1年","all":"全期間"}[gPeriod];
   const typeCounts=Object.keys(TYPES).map(t=>({t,n:p.records.filter(r=>r.type===t).length})).filter(o=>o.n>0).sort((a,b)=>b.n-a.n);
+  const totalRec=typeCounts.reduce((a,o)=>a+o.n,0);
   document.getElementById("app").innerHTML=`
     <div class="view-head"><h1>📈 グラフ</h1><p>${esc(p.name)}の体重推移</p>
       <button class="view-pet" id="vpBtn"><span class="pp">${photos[p.id]?`<img src="${photos[p.id]}">`:esc(p.emoji)}</span>${esc(p.name)} ▼</button></div>
-    <div class="period" id="gPeriod">
-      <button class="${gPeriod==='3m'?'on':''}" data-p="3m">3ヶ月</button>
-      <button class="${gPeriod==='1y'?'on':''}" data-p="1y">1年</button>
-      <button class="${gPeriod==='all'?'on':''}" data-p="all">全期間</button>
+    <div class="period" id="gPeriod" role="group" aria-label="期間">
+      ${[["3m","3ヶ月"],["1y","1年"],["all","全期間"]].map(([k,l])=>`<button class="${gPeriod===k?'on':''}" data-p="${k}" aria-pressed="${gPeriod===k}">${l}</button>`).join("")}
     </div>
-    <div class="graph-card"><h3>⚖️ 体重の推移（kg）</h3><div class="gwrap">${weightGraphSVG(ws)}</div></div>
+    <section class="g-summary" aria-label="この期間の増減">
+      <span>この期間（${periodName}）の増減</span>
+      <b class="num ${cls(change)}">${signedKg(change)}</b>
+      <small>${vals.length>=2?`${jpDate(ws[0].date).md} ${vals[0]}kg → ${jpDate(ws[ws.length-1].date).md} ${latest}kg ・ ${vals.length}回の記録`:(vals.length?"この期間の記録は1回です":"この期間の体重記録はありません")}</small>
+    </section>
+    <div class="graph-card"><h3>⚖️ 体重の推移（kg）</h3>
+      <div class="g-chips">
+        <span class="g-chip">直近の変化 <b class="${cls(recent)}">${recent==null?'—':signedKg(recent)}</b></span>
+        <button class="g-chip" id="targetBtn">🎯 目標 <b>${tw!=null?tw+'kg':'未設定'}</b>${toGoal!=null?` <small>${Math.abs(toGoal)<0.05?'達成':'あと'+Math.abs(toGoal)+'kg'}</small>`:''}</button>
+      </div>
+      <div class="gwrap">${weightGraphSVG(ws,tw)}</div></div>
     <div class="stat-grid">
       <div class="stat"><b class="num">${latest!=null?latest:'—'}</b><span>最新 kg</span></div>
       <div class="stat"><b class="num">${max!=null?max:'—'}</b><span>最大 kg</span></div>
       <div class="stat"><b class="num">${min!=null?min:'—'}</b><span>最小 kg</span></div>
-      <div class="stat"><b class="num" style="color:${change>0?'var(--red)':change<0?'var(--green)':'inherit'}">${change==null?'—':(change>0?'+':'')+change}</b><span>増減 kg</span></div>
     </div>
-    <div class="section" style="margin-top:22px"><h2>📊 記録の内訳</h2></div>
-    <div class="type-stats">
-      ${typeCounts.length?typeCounts.map(o=>`<div class="type-stat"><span class="e">${TYPES[o.t].ico}</span><b>${TYPES[o.t].label}</b><span class="c num">${o.n}</span></div>`).join(""):'<div style="padding:16px 0;text-align:center;color:var(--soft);font-weight:700;font-size:.8rem">記録がありません</div>'}
-    </div>`;
+    <details class="breakdown"><summary>📊 記録の内訳（全${totalRec}件）</summary>
+      <div class="type-stats">
+        ${typeCounts.length?typeCounts.map(o=>`<div class="type-stat"><span class="e">${TYPES[o.t].ico}</span><b>${TYPES[o.t].label}</b><span class="c num">${o.n}</span></div>`).join(""):'<div style="padding:16px 0;text-align:center;color:var(--soft);font-weight:700;font-size:.8rem">記録がありません</div>'}
+      </div>
+    </details>`;
   document.getElementById("vpBtn").onclick=petSheet;
+  document.getElementById("targetBtn").onclick=targetSheet;
   document.querySelectorAll("#gPeriod button").forEach(b=>b.onclick=()=>{ gPeriod=b.dataset.p; render(); });
+}
+function targetSheet(){
+  const p=pet();
+  openSheet(`<div class="sheet-h"><b>🎯 目標体重</b><button class="x" onclick="closeSheet()" aria-label="閉じる">✕</button></div>
+    <div class="field"><label>目標体重（kg）</label><div class="row"><input id="t_val" type="number" inputmode="decimal" step="0.1" min="0.1" max="1000" placeholder="例：9.0" value="${p.targetWeight??''}"><span class="unit">kg</span></div></div>
+    <p class="small-note">グラフに点線で表示します。獣医師と相談した目安を入れるのがおすすめです。空欄で保存すると解除します。</p>
+    <button class="save-btn" onclick="saveTarget()">保存する</button>`);
+}
+function saveTarget(){
+  const raw=document.getElementById("t_val").value.trim(), p=pet();
+  if(raw===""){ delete p.targetWeight; render(); closeSheet(true); toast("目標体重を解除しました"); return; }
+  const v=parseFloat(raw);
+  if(!Number.isFinite(v)||v<=0||v>1000){ toast("0.1〜1000kgの範囲で入力してください"); return; }
+  p.targetWeight=+v.toFixed(2); render(); closeSheet(true); toast("目標体重を保存しました");
 }
 
 /* ---------------- SETTINGS VIEW ---------------- */
@@ -1356,25 +1510,23 @@ function renderSettings(){
       <div class="set-card">
         <button class="set-row" id="exportRow"><span class="se">📤</span><div class="st"><b>バックアップを書き出す</b><span>記録と写真をまるごと1ファイルに</span></div><span class="sarrow">›</span></button>
         <button class="set-row" id="importRow"><span class="se">📥</span><div class="st"><b>バックアップから復元</b><span>機種変更・再インストール時に</span></div><span class="sarrow">›</span></button>
+        <button class="set-row" onclick="exportRecovery()"><span class="se">🛟</span><div class="st"><b>復元前の退避データを書き出す</b><span>復元をやり直したいときに</span></div><span class="sarrow">›</span></button>
       </div>
     </div>
     <div class="set-group">
-      <button class="set-row" onclick="exportRecovery()"><span>復元前の退避データを書き出す</span></button>
       <div class="set-label">アプリについて</div>
       <div class="set-card">
-        <button class="set-row" id="tipRow" disabled aria-disabled="true"><span class="se">☕</span><div class="st"><b>応援機能（未提供）</b><span>決済・送金機能はありません</span></div><span class="sarrow">›</span></button>
         <a class="set-row" href="help.html" style="text-decoration:none;color:inherit"><span class="se">📖</span><div class="st"><b>使い方</b><span>記録・写真・バックアップの手順</span></div><span class="sarrow">›</span></a><button class="set-row" id="privacyRow"><span class="se">🔒</span><div class="st"><b>プライバシーポリシー</b><span>データは端末内にのみ保存</span></div><span class="sarrow">›</span></button>
-        <div class="set-row"><span class="se">ℹ️</span><div class="st"><b>バージョン</b><span>うちのこ手帳 v1.3.1</span></div></div>
+        <div class="set-row"><span class="se">ℹ️</span><div class="st"><b>バージョン</b><span>うちのこ手帳 v1.4.0</span></div></div>
       </div>
     </div>
-    <div class="set-foot">記録は同じブラウザ・同じURLで利用してください。<br>ブラウザデータの削除で失われることがあります。<br>🐾<br>うちのこ手帳<br>記録はこの端末の中だけに保存されます。<br>大切な記録は、ときどきバックアップしてね。</div>`;
+    <div class="set-foot">🐾 うちのこ手帳<br>記録はこの端末・このブラウザの中だけに保存されます。<br>同じブラウザ・同じURLで使い、ときどきバックアップしてね。</div>`;
   document.querySelectorAll("[data-editpet]").forEach(el=>el.onclick=()=>editPetForm(el.dataset.editpet));
   document.querySelectorAll("[data-delpet]").forEach(el=>el.onclick=()=>deletePet(el.dataset.delpet));
   document.getElementById("addPetRow").onclick=addPetForm;
   document.getElementById("notifRow").onclick=async()=>{ await ensureNotify(); render(); toast(notifState==="granted"?"通知をオンにしました 🔔":"端末の設定から通知を許可してください"); };
   document.getElementById("exportRow").onclick=exportData;
   document.getElementById("importRow").onclick=triggerImport;
-  document.getElementById("tipRow").onclick=()=>toast("応援ありがとうございます！近日対応予定です ☕");
   document.getElementById("privacyRow").onclick=()=>{ try{ window.open("privacy-policy.html","_blank","noopener,noreferrer"); }catch(e){} };
 }
 
@@ -1550,7 +1702,24 @@ function editRecord(i){
  document.getElementById("f_date").value=r.date;document.getElementById("f_note").value=r.note;
  if(r.type==="weight")document.getElementById("f_val").value=r.value;
  document.querySelector("#sheet .sheet-h b").textContent=TYPES[r.type].ico+" "+TYPES[r.type].label+"を編集";
+ document.getElementById("sheet").insertAdjacentHTML("beforeend",`<button class="danger-link" onclick="deleteRecord(${i})">🗑 この記録を削除</button>`);
 }
+function recordSummary(r){ const T=TYPES[r.type],dd=jpDate(r.date); return `${T.label}（${dd.md}）`+(r.type==="weight"?` ${r.value}kg`:"")+(r.note?`\n${r.note.slice(0,40)}`:""); }
+function deleteRecord(i){
+ const p=pet(), r=p.records[i]; if(!r)return;
+ if(!confirm("この記録を削除しますか？\n\n"+recordSummary(r)+"\n\n削除すると元に戻せません。"))return;
+ p.records.splice(i,1); render(); closeSheet(true); toast("記録を削除しました");
+}
+function recordMenu(i){
+ const r=pet().records[i]; if(!r)return; const T=TYPES[r.type],dd=jpDate(r.date);
+ openSheet(`<div class="sheet-h"><b>${T.ico} ${T.label}（${dd.md}）</b><button class="x" onclick="closeSheet()" aria-label="閉じる">✕</button></div>
+  <p class="menu-sum">${esc(r.type==="weight"?r.value+"kg":"")}${r.type==="weight"&&r.note?" ／ ":""}${esc(r.note||(r.type==="weight"?"":"メモなし"))}</p>
+  <button class="save-btn" onclick="editRecord(${i})">✏️ 編集する</button>
+  <button class="secondary danger-text" onclick="deleteRecord(${i})">🗑 削除する</button>
+  <button class="text-button" onclick="closeSheet()">キャンセル</button>`);
+}
+function clearRecSearch(){recQuery="";render();}
+function resetRecFilter(){recFilter="all";recQuery="";render();}
 
 /* ---------------- INIT ---------------- */
 async function init(){
